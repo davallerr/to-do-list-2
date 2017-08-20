@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 
@@ -42,12 +41,50 @@ class TaskInput extends React.Component {
 }
 
 class Task extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+
+    };
+  }
+
   render() {
     return (
-      <div id="task-0" className="task">
-        <div className="task__description">task description</div>
-        <div className="task__date">xx/xx/xxxx</div>
+      <div id={this.props.key} className="task">
+        <div className="task__description">{this.props.description}</div>
+        <div className="task__date">{this.props.date}</div>
         <div className="task__delete"><button className="task__delete--btn">delete</button></div>
+      </div>
+    );
+  }
+}
+
+class Tasks extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+
+    };
+  }
+
+  _getTasks() {
+    const tasksList = [
+      {id: 1, description: 'testing1 tasks description', date: 'test/date/2017'},
+      {id: 2, description: 'test2 description of tasks', date: 'second/date/2017'}
+    ];
+
+    return tasksList.map((task) => {
+      return (
+        <Task key={task.id} description={task.description} date={task.date} />
+      );
+    });
+  }
+
+  render() {
+    const  tasks = this._getTasks();
+    return (
+      <div className="tasks-list">
+        {tasks}}
       </div>
     );
   }
@@ -65,9 +102,7 @@ class App extends Component {
           </div>
           <TaskInput />
         </div>
-        <div className="tasks-list">
-          <Task />
-        </div>
+        <Tasks />
       </div>
     );
   }

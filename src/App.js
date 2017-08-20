@@ -3,24 +3,30 @@ import logo from './logo.svg';
 import './App.css';
 
 
+class CurrentList extends React.Component {
+  render() {
+    return (
+      <h2 className="top__list-current">All Tasks</h2>
+    );
+  }
+}
 
+class NavBar extends React.Component {
+  render() {
+    //const lists = this._getLists();
+    //let listNodes;
 
-/*
-<h1 class='top__header'>Ta-Da List</h1>
-
-<div class='container--top__nav'>
-  <h2 class='top__list-current'>All Tasks</h2>
-  <div class='top__navbar'>
-    <select class='top__list-select'>
-      <option class='top__list-option'>All Tasks</option>
-    </select>
-    <button class='top__list-add--btn'>Add List</button>
-    <button class='top__list-delete--btn'>Delete List</button>
-  </div>
-</div>
-*/
-
-
+    return (
+      <div className="top__navbar">
+        <select className="top__list-select">
+          <option className="top__list-option">All Tasks</option>
+        </select>
+        <button className="top__list-add--btn">Add List</button>
+        <button className="top__list-delete--btn">Delete List</button>
+      </div>
+    );
+  }
+}
 
 class TaskInput extends React.Component {
   render() {
@@ -52,8 +58,10 @@ class App extends Component {
     return (
       <div className="App">
         <div className="top">
-          <h1 class="top__header">Ta-Da List</h1>
-          <div class="container--top__nav">
+          <h1 className="top__header">Ta-Da List</h1>
+          <div className="container--top__nav">
+            <CurrentList />
+            <NavBar />
           </div>
           <TaskInput />
         </div>

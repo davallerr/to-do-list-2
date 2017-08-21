@@ -10,6 +10,55 @@ class CurrentList extends React.Component {
   }
 }
 
+class BtnAddTask extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+
+    };
+  }
+
+  render() {
+    return (
+      <button className="top__list-add--btn">Add List</button>
+    );
+  }
+}
+
+class BtnDeleteTask extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+
+    };
+  }
+
+  render() {
+    return (
+      <button className="top__list-delete--btn">Delete List</button>
+    );
+  }
+}
+
+class SelectLists extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+
+    };
+  }
+
+  render() {
+    return (
+      <select className="top__list-select">
+        <option className="top__list-option">All Tasks</option>
+        <option className="top__list-option">Another example for now</option>
+        <option className="top__list-option">Last example</option>
+      </select>
+    );
+  }
+}
+
 class NavBar extends React.Component {
   render() {
     //const lists = this._getLists();
@@ -17,17 +66,26 @@ class NavBar extends React.Component {
 
     return (
       <div className="top__navbar">
-        <select className="top__list-select">
-          <option className="top__list-option">All Tasks</option>
-        </select>
-        <button className="top__list-add--btn">Add List</button>
-        <button className="top__list-delete--btn">Delete List</button>
+        <SelectLists />
+        <BtnAddTask />
+        <BtnDeleteTask />
       </div>
     );
   }
 }
 
 class TaskInput extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+
+    };
+  }
+
+  _handleAddClick() {
+
+  }
+
   render() {
     return (
       <div className="add-task">
@@ -50,7 +108,7 @@ class Task extends React.Component {
 
   render() {
     return (
-      <div id={this.props.key} className="task">
+      <div className="task">
         <div className="task__description">{this.props.description}</div>
         <div className="task__date">{this.props.date}</div>
         <div className="task__delete"><button className="task__delete--btn">delete</button></div>
@@ -69,8 +127,8 @@ class Tasks extends React.Component {
 
   _getTasks() {
     const tasksList = [
-      {id: 1, description: 'testing1 tasks description', date: 'test/date/2017'},
-      {id: 2, description: 'test2 description of tasks', date: 'second/date/2017'}
+      {id: 1, description: 'testing1 tasks description', date: 'test/date/one'},
+      {id: 2, description: 'test2 description of tasks', date: 'second/date/test'}
     ];
 
     return tasksList.map((task) => {
@@ -84,7 +142,7 @@ class Tasks extends React.Component {
     const  tasks = this._getTasks();
     return (
       <div className="tasks-list">
-        {tasks}}
+        {tasks}
       </div>
     );
   }

@@ -5,17 +5,63 @@ import './App.css';
 class CurrentList extends React.Component {
   render() {
     return (
-      <h2 className="top__list-current">All Tasks</h2>
+      <h2 className="top__list-current">All Tasks for now</h2>
     );
   }
 }
 
-class BtnAddTask extends React.Component {
+class SelectLists extends React.Component {
   constructor() {
     super();
     this.state = {
-
+      value: 'All Tasks'
     };
+
+    this._handleChange = this._handleChange.bind(this);
+  }
+
+  _handleChange(event) {
+    this.setState({value: event.target.value});
+    // also needs to change list view
+  }
+
+  _getLists() {
+    const listOptions = [
+      {id: 1, name: 'All Tasks'},
+      {id: 2, name: 'Another example for now'},
+      {id: 3, name: 'Last example'}
+    ];
+
+    return listOptions.map((list) => {
+      return (
+        <option className="top__list-option" key={list.id}>{list.name}</option>
+      );
+    });
+  }
+
+  render() {
+    const lists = this._getLists();
+
+    return (
+      <select className="top__list-select">
+        {lists}
+      </select>
+    );
+  }
+}
+
+class BtnAddList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      
+    };
+
+    this._handleClick = this._handleClick.bind(this);
+  }
+
+  _handleClick(event) {
+
   }
 
   render() {
@@ -25,36 +71,21 @@ class BtnAddTask extends React.Component {
   }
 }
 
-class BtnDeleteTask extends React.Component {
+class BtnDeleteList extends React.Component {
   constructor() {
     super();
     this.state = {
 
     };
+  }
+
+  _handleClick() {
+
   }
 
   render() {
     return (
       <button className="top__list-delete--btn">Delete List</button>
-    );
-  }
-}
-
-class SelectLists extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-
-    };
-  }
-
-  render() {
-    return (
-      <select className="top__list-select">
-        <option className="top__list-option">All Tasks</option>
-        <option className="top__list-option">Another example for now</option>
-        <option className="top__list-option">Last example</option>
-      </select>
     );
   }
 }
@@ -67,8 +98,8 @@ class NavBar extends React.Component {
     return (
       <div className="top__navbar">
         <SelectLists />
-        <BtnAddTask />
-        <BtnDeleteTask />
+        <BtnAddList />
+        <BtnDeleteList />
       </div>
     );
   }
@@ -78,22 +109,40 @@ class TaskInput extends React.Component {
   constructor() {
     super();
     this.state = {
-
+      value: ''
     };
+
+    this._handleChange = this._handleChange.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  _handleAddClick() {
+  _handleChange(event) {
+    this.setState({value: event.target.value});
+  }
 
+  _handleSubmit(event) {
+    console.log('did a submit');
+    console.log(this.state.value);
+    event.preventDefault();
   }
 
   render() {
     return (
-      <div className="add-task">
-        <div className="add-task__field">
-          <button className="add-task--btn"><span>+</span></button>
-          <input className="add-task--input" placeholder="add new task"></input>
-        </div>
-      </div>
+      <form onSubmit={this._handleSubmit}>
+        <button
+          className="add-task--btn"
+          type="submit"
+          onClick={this._handleSubmit}
+          ><span>+</span>
+        </button>
+        <input
+          className="add-task--input"
+          placeholder="add new task"
+          type="text"
+          value={this.state.value}
+          onChange={this._handleChange}
+          onSubmit={this._handleSubmit} />
+      </form>
     );
   }
 }
@@ -140,6 +189,7 @@ class Tasks extends React.Component {
 
   render() {
     const  tasks = this._getTasks();
+
     return (
       <div className="tasks-list">
         {tasks}
@@ -158,7 +208,11 @@ class App extends Component {
             <CurrentList />
             <NavBar />
           </div>
-          <TaskInput />
+          <div className="add-task">
+            <div className="add-task__field">
+              <TaskInput />
+            </div>
+          </div>
         </div>
         <Tasks />
       </div>

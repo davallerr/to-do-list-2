@@ -121,6 +121,7 @@ class TaskInput extends React.Component {
   }
 
   _handleSubmit(event) {
+    // add task and display in list
     console.log('did a submit');
     console.log(this.state.value);
     event.preventDefault();

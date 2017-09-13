@@ -1,11 +1,40 @@
 import React, { Component } from 'react';
 import './App.css';
 
+const CurrentList = (props) => (
+  <h2 className="top__list-current">{props.currentList}</h2>
+);
 
+/*
 class CurrentList extends React.Component {
   render() {
     return (
       <h2 className="top__list-current">All Tasks for now</h2>
+    );
+  }
+}
+*/
+
+class ListNav extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currentList: 'All Tasks for now'
+    };
+
+    this._handleChange = this._handleChange.bind(this);
+  }
+
+  _handleChange(event) {
+    this.setState({currentList: event.target.value});
+  }
+
+  render() {
+    return(
+      <div className="container--top__nav">
+        <CurrentList currentList={this.state.currentList} />
+        <NavBar />
+      </div>
     );
   }
 }
@@ -14,7 +43,7 @@ class SelectLists extends React.Component {
   constructor() {
     super();
     this.state = {
-      value: 'All Tasks'
+      value: ''
     };
 
     this._handleChange = this._handleChange.bind(this);
@@ -167,11 +196,11 @@ class Task extends React.Component {
   }
 }
 
-class Tasks extends React.Component {
+class TasksList extends React.Component {
   constructor() {
     super();
     this.state = {
-
+      data: []
     };
   }
 
@@ -189,7 +218,7 @@ class Tasks extends React.Component {
   }
 
   render() {
-    const  tasks = this._getTasks();
+    const tasks = this._getTasks();
 
     return (
       <div className="tasks-list">
@@ -199,26 +228,23 @@ class Tasks extends React.Component {
   }
 }
 
-class App extends Component {
+class TaDaApp extends Component {
   render() {
     return (
       <div className="App">
         <div className="top">
           <h1 className="top__header">Ta-Da List</h1>
-          <div className="container--top__nav">
-            <CurrentList />
-            <NavBar />
-          </div>
+          <ListNav />
           <div className="add-task">
             <div className="add-task__field">
               <TaskInput />
             </div>
           </div>
         </div>
-        <Tasks />
+        <TasksList />
       </div>
     );
   }
 }
 
-export default App;
+export default TaDaApp;
